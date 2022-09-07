@@ -6,6 +6,16 @@ const port = 4000;
 // if we use json obejct inside our app.js
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    console.log('get request comming!');
+    res.send('get req came for / route')
+})
+
+app.get('/customer', (req, res) => {
+    console.log('customer get come');
+    res.send('<h1>Customer get req came</h1>')
+})
+
 // app.get('/', (req, res) => {
 //     console.log('Get Request has come')
 //     res.send('Hello KITT!')
