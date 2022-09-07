@@ -30,8 +30,23 @@ router.get('/', (req, res) => {
 // })
 
 router.post('/', (req, res) => {
-    console.log(req.body);
-    res.send('customer post')
+    // console.log(req.body);
+    // res.send('customer post')
+
+    const id = req.body.id
+    const name = req.body.name
+    const address = req.body.address
+
+    var query = "INSERT INTO users (id, name, address) VALUES (?, ?, ?)";
+
+    connection.query(query, [id, name, address], (err) => {
+        if(err) {
+            res.send({'message' : 'duplicate entry'})
+        } else {
+            res.send({'message' : 'customer created!' })
+        }
+    })
+
 })
 
 router.put('/', (req, res) => {
