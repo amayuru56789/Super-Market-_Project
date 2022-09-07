@@ -78,8 +78,22 @@ router.put('/', (req, res) => {
 })
 
 router.delete('/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send('delete method')
+    // console.log(req.params.id);
+    // res.send('delete method')
+
+    const id = req.params.id
+
+    var query = "DELETE FROM customers WHERE id=?";
+
+    connection.query(query, [id], (err, rows) => {
+        if (err) console.log(err);
+
+        if (rows.affectedRows > 0) {
+            res.send({ 'message': 'customer deleted' })
+        } else {
+            res.send({ 'message': 'customer not found' })
+        }
+    })
 })
 
 router.get('/:id', (req, res) => {
