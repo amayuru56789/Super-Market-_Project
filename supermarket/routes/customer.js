@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
     // res.send('customer get')
     var query = "SELECT * FROM customers";
     connection.query(query, (err, rows) => {
-        if(err) throw err
+        if (err) throw err
 
         res.send(rows)
     })
@@ -48,17 +48,33 @@ router.post('/', (req, res) => {
     var query = "INSERT INTO users (id, name, address) VALUES (?, ?, ?)";
 
     connection.query(query, [id, name, address], (err) => {
-        if(err) {
-            res.send({'message' : 'duplicate entry'})
+        if (err) {
+            res.send({ 'message' : 'duplicate entry' })
         } else {
-            res.send({'message' : 'customer created!' })
+            res.send({ 'message' : 'customer created!' })
         }
     })
 
 })
 
 router.put('/', (req, res) => {
-    res.send('put method')
+    // res.send('put method')
+    const id = req.body.id
+    const name = req.body.name
+    const address = req.body.address
+
+    var query = "UPDATE users SET name=?, address=? WHERE id=?";
+
+    connection.query(query, [name, address, id], (err, rows) => {
+        if (err) console.log(err);
+
+        if (rows.affectedRows > 0) {
+            res.send({'message': 'customer updated'})
+        } else {
+            res.send({ 'message': 'customer not found' })
+        }
+        res.send(rows)
+    })
 })
 
 router.delete('/:id', (req, res) => {
