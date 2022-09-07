@@ -1,10 +1,12 @@
 const express = require('express');
+const customer = require('./routes/customer')
 const app = express();
 
 const port = 4000;
 
 // if we use json obejct inside our app.js
 app.use(express.json());
+app.use('/customer', customer)
 
 app.get('/', (req, res) => {
     console.log('get request comming!');
