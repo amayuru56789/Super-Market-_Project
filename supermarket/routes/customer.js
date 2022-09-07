@@ -97,7 +97,16 @@ router.delete('/:id', (req, res) => {
 })
 
 router.get('/:id', (req, res) => {
-    res.send('get customer by id')
+    // res.send('get customer by id')
+    const id = req.params.id
+
+    var query = "SELECT * from customers WHERE id=?";
+
+    connection.query(query, [id], (err, row) => {
+        if(err) console.log(err);
+
+        res.send(row)
+    })
 })
 
 module.exports = router
