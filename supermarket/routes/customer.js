@@ -14,6 +14,8 @@ connection.connect(function(err) {
         connection.query(userTableQuery, function (err, result) {
             if (err) throw err;
             // console.log(result);
+            // console.log(result); // 
+            // console.log("table created");
             if (result.warningCount === 0) {
                 console.log("Customer table created!");
             }
@@ -22,7 +24,13 @@ connection.connect(function(err) {
 })
 
 router.get('/', (req, res) => {
-    res.send('customer get')
+    // res.send('customer get')
+    var query = "SELECT * FROM customers";
+    connection.query(query, (err, rows) => {
+        if(err) throw err
+
+        res.send(rows)
+    })
 })
 
 // router.get('/customer-name', (req, res) => {
